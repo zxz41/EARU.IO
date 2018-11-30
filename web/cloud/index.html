@@ -14,11 +14,18 @@
         <title>Earu - Cloud</title>
         <link rel="stylesheet" href="../css/bootstrap.css" />
         <link rel="stylesheet" href="../css/cloud.css">
+        <link rel="stylesheet" href="../css/mobile.css">
     </head>
     <body>
         <div class="relative">
             <div class="row">
-                <div class="col-lg-1 banner-left">
+                <div class="col-12 no-javascript">This website will NOT work properly without JavaScript</div>
+                <noscript>
+                    <style type="text/css">
+                        .no-javascript { display: inline-block; }
+                    </style>
+                </noscript>
+                <div class="col-1 banner-left">
                     <a href="../" class="logo"></a>
                     <!-- buttons in banner -->
                     <a href="" class="main_btn">Upload</a>
@@ -28,25 +35,29 @@
                     <a href="" class="main_btn">Rename</a>
                     <a href="" class="main_btn">Copy Link</a>
                 </div>
-                <div class="col-lg-11">
-                    <div class="row">
-                        <div class="col-lg-11 header">
+                <div class="col-11">
+                    <div id="file-list-parent" class="row">
+                        <div class="col-11 header">
                             <h1><?php DisplayProperBaseDirectory(); ?>/</h1>
                             <h3><?php DisplayProperDirectory(); ?></h3>
                         </div>
-                        <div class="col-lg-1 header">
+                        <div class="col-1 header">
                             <form class="login-form" method="POST">
                                 <input class="main_btn" type="submit" name="Disconnect" value="Disconnect"/>
                             </form>
                         </div>
-                        <div class="col-lg-4 sorting-header">Name</div>
-                        <div class="col-lg-4 sorting-header">Date Modified</div>
-                        <div class="col-lg-2 sorting-header">Size</div>
-                        <div class="col-lg-2 sorting-header">Kind</div>
-                        <?php DisplayFiles(GetFiles()); ?>
+                        <div class="col-sm-4 sorting-header">Name</div>
+                        <div class="col-sm-4 sorting-header">Date Modified</div>
+                        <div class="col-sm-2 sorting-header">Size</div>
+                        <div class="col-sm-2 sorting-header">Kind</div>
+                        <div class="scrollable">
+                            <?php DisplayFiles(GetFiles()); ?>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <script src="../js/cloud.js"></script>
+        <script src="../js/mobile.js"></script>
     </body>
 </html>

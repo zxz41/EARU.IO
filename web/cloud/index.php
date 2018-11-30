@@ -80,9 +80,9 @@
             $color = $i % 2 == 0 ? "#ffffff" : "#eeeeee";
             $i++;
             $path = $_SESSION["CurrentDirectory"] . "/" . $f;
-	        echo("<div  style=\"background-color:" . $color . ";\" class=\"row file-row\">");
+            echo("<div style=\"background-color:" . $color . ";\" class=\"row file-row\">");
                 echo("<div class=\"file-row-category col-lg-4\">" . $f . "</div>");
-                echo("<div class=\"file-rpw-category col-lg-4\">" . date("F d Y H:i:s", filectime($path)) . "</div>");
+                echo("<div class=\"file-row-category col-lg-4\">" . date("m/d/Y H:i:s", filectime($path)) . "</div>");
                 $filesize = filesize($path); // bytes
                 $filesize = round($filesize / 1024, 2);
                 echo("<div class=\"file-row-category col-lg-2\">" . $filesize . "KB </div>");

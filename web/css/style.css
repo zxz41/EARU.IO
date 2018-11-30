@@ -31,7 +31,7 @@ body {
 }
 
 .home_banner .banner_left h1 {
-  font-size: 60px;
+  font-size: 300%;
   text-transform: capitalize;
   font-weight: 300;
 }
@@ -166,7 +166,6 @@ h1 {
 }
 
 .login-form{
-  margin-top: 5%;
   z-index: 2;
 }
 

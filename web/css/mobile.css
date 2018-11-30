@@ -1,0 +1,45 @@
+.mobile-logo {
+  min-width: 50px;
+  min-height: 50px;
+  z-index: 2;
+  background-image: url("../img/logo_outline_red.png");
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  border-radius: 9999px;
+  border: #f42f2c solid 2px;
+  box-shadow: 0px 0px 40px rgba(244, 47, 44, 0.32);
+  width: 40vh;
+  height: 40vh;
+  background-size: 30vh;
+  margin: auto;
+  margin-top: 15%;
+  display: none;
+}
+
+.mobile-logo:hover {
+  border: #f9f9ff solid 2px;
+  box-shadow: none;
+  background-image: url("../img/logo_outline.png");
+}
+
+.mobile{
+  text-align: center;
+  background-color: #2d2d2d;
+  color: #f42f2c;
+}
+
+.mobile > .relative{
+  display: none;
+}
+
+#mobile-warning{
+  display: none;
+}
+
+.mobile > #mobile-warning{
+  display: inline;
+}
+
+.mobile > #mobile-logo{
+  display: block;
+}
