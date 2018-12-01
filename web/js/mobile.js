@@ -1,5 +1,5 @@
-// Page warning for mobile incompatibility
-let mobilewarned = false;
+//hack to make the webpage look decent on small resolutions
+let resized = false;
 function OnResize()
 {
     let width = document.body.offsetWidth;
@@ -11,21 +11,17 @@ function OnResize()
             filelist.style.marginRight = "-10%";
             let elements = document.getElementsByClassName("mobile-left-padding");
             for(let element of elements)
-            {
                 element.style.paddingLeft = "5%";
-            }
         }
         else
         {
             filelist.style.marginRight = "0";
             let elements = document.getElementsByClassName("mobile-left-padding");
             for(let element of elements)
-            {
                 element.style.paddingLeft = "0";
-            }
         }
 
-        if(!mobilewarned)
+        if(!resized)
         {
             let banner = document.getElementsByClassName("banner-left")[0];
             banner.style.display = "none";
@@ -36,24 +32,24 @@ function OnResize()
             let maindiv = filelist.parentNode;
             maindiv.classList.remove("col-sm-11");
             maindiv.classList.add("col-sm-12");
-            mobilewarned = true;
+            resized = true;
         }
     }
     else
     {
-        if(mobilewarned)
+        if(resized)
         {
             let banner = document.getElementsByClassName("banner-left")[0];
             banner.style.display = "block";
             banner.classList.add("col-sm-1");
 
             let filelist = document.getElementById("file-list-parent")
-            filelist.style.marginLeft = "-1.1%";
+            filelist.style.marginLeft = "-1%";
 
             let maindiv = filelist.parentNode;
             maindiv.classList.remove("col-sm-12");
             maindiv.classList.add("col-sm-11");
-            mobilewarned = false;
+            resized = false;
         }
     }
 }

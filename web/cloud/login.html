@@ -12,7 +12,7 @@
 	<link rel="icon" href="../img/logo.png" type="image/png">
 	<title>Earu - Cloud</title>
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="../css/bootstrap.css">
+	<link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.11/css/lightgallery.min.css">
 	<!-- main css -->
 	<link rel="stylesheet" href="../css/style.css">
@@ -30,8 +30,12 @@
                             <input name="Password" type="password" placeholder="Password" />
                             <input class="main_btn ontop" type="submit" value="Login"/>
 						</form>
+						<?php
+							if(isset($_SESSION["WrongCredentials"]))
+								echo("<span style=\"color:red;\">Your password and/or email is invalid</span>");
+						?>
 						<hr/>
-						<div>I want to back to the <a href="../">homepage!</a></div>
+						<div>I want to go back to the <a href="../">homepage!</a></div>
 					</div>
 				</div>
 				<div class="col-lg-6">
@@ -57,6 +61,7 @@
 			</div>
 		<img class="face-img img-fluid" src="../img/logo.png" alt="logo">
 	</div>
+	<script src="../lib/bootstrap/js/bootstrap.min.js"></script>
 </body>
 
 </html>

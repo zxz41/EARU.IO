@@ -35,11 +35,6 @@ function OnRowClick(i,element)
     }
 }
 
-function ChangeDirectory(dir)
-{
-
-}
-
 for(let i=0; i < elements.length; i++)
 {
     let element = elements[i];

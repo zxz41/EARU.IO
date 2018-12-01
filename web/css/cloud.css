@@ -53,17 +53,6 @@ h3
   right: 20%;
 }
 
-.header > form > .main_btn {
-  font-size: 15px;
-  background-color: #cccccc;
-  border: #cccccc solid 1px;
-  color: #999999;
-}
-
-.header > form > .main_btn:hover {
-  background: transparent;
-}
-
 .logo {
   width: 5vw;
   height: 5vw;
@@ -92,6 +81,7 @@ h3
 }
 
 .main_btn {
+  width: 100%;
   margin-bottom: 10%;
   background-color: #f42f2c;
   z-index: 2;
@@ -102,7 +92,6 @@ h3
   font-weight: 600;
   line-height: 48px;
   transition: 0.25s;
-  text-transform: capitalize;
   border: #f42f2c solid 1px;
 }
 
@@ -110,6 +99,19 @@ h3
   background: transparent;
   color: #f42f2c;
   border: #f42f2c solid 1px;
+}
+
+.grey_btn {
+  font-size: 15px;
+  background-color: #cccccc;
+  border: #cccccc solid 1px;
+  color: #999999;
+}
+
+.grey_btn:hover {
+  background: transparent;
+  border: #cccccc solid 1px;
+  color: #999999;
 }
 
 .mobile-left-padding{

@@ -12,12 +12,16 @@
         <link rel="icon" href="../img/logo.png" type="image/png" />
 
         <title>Earu - Cloud</title>
-        <link rel="stylesheet" href="../css/bootstrap.css" />
+        <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css" />
         <link rel="stylesheet" href="../css/cloud.css">
         <link rel="stylesheet" href="../css/mobile.css">
+        <link rel="stylesheet" href="../css/modal.css">
     </head>
     <body>
-        <div class="relative">
+        <section>
+            <?php LoadModals(); ?>
+        </section>
+        <section class="relative">
             <div class="row">
                 <div class="col-12 no-javascript">This website will NOT work properly without JavaScript</div>
                 <noscript>
@@ -28,11 +32,11 @@
                 <div class="col-1 banner-left">
                     <a href="../" class="logo"></a>
                     <!-- buttons in banner -->
-                    <a href="" class="main_btn">Upload</a>
-                    <a href="" class="main_btn">Download</a>
-                    <a href="" class="main_btn">Remove</a>
-                    <a href="" class="main_btn">Move</a>
-                    <a href="" class="main_btn">Rename</a>
+                    <button type="button" class="main_btn" data-toggle="modal" data-target="#upload_modal">Upload</button>
+                    <button type="button" class="main_btn" data-toggle="modal" data-target="#download_modal">Download</button>
+                    <button type="button" class="main_btn" data-toggle="modal" data-target="#remove_modal">Remove</button>
+                    <button type="button" class="main_btn" data-toggle="modal" data-target="#move_modal">Move</button>
+                    <button type="button" class="main_btn" data-toggle="modal" data-target="#rename_modal">Rename</button>
                     <a href="" class="main_btn">Copy Link</a>
                 </div>
                 <div class="col-11">
@@ -43,21 +47,25 @@
                         </div>
                         <div class="col-1 header">
                             <form class="login-form" method="POST">
-                                <input class="main_btn" type="submit" name="Disconnect" value="Disconnect"/>
+                                <input class="main_btn grey_btn" type="submit" name="Disconnect" value="Disconnect"/>
                             </form>
                         </div>
                         <div class="col-sm-4 sorting-header">Name</div>
                         <div class="col-sm-4 sorting-header">Date Modified</div>
                         <div class="col-sm-2 sorting-header">Size</div>
-                        <div class="col-sm-2 sorting-header">Kind</div>
+                        <div class="col-sm-2 sorting-header">Type</div>
                         <div class="scrollable">
                             <?php DisplayFiles(GetFiles()); ?>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <script src="../js/cloud.js"></script>
-        <script src="../js/mobile.js"></script>
+        </section>
+        <section>
+            <script src="../js/cloud.js"></script>
+            <script src="../js/mobile.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script src="../lib/bootstrap/js/bootstrap.min.js"></script>
+        </section>
     </body>
 </html>
