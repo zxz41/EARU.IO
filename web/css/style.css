@@ -109,11 +109,14 @@ h1 {
   font-size: 36px;
 }
 
+.ontop{
+  z-index: 2 !important;
+}
+
 .main_btn {
   margin: 0px -20px 20px 0px !important;
   padding: 0px 30px;
   background: #f42f2c;
-  z-index: 2;
   display: inline-block;
   transition: all 400ms linear;
   text-align: center;
@@ -201,4 +204,37 @@ h1 {
   background: transparent;
   color: #f42f2c;
   box-shadow: none;
+}
+
+.service_btn{
+  width: 75px;
+  height: 75px;
+  padding: 10px;
+  border-radius: 9999px;
+  text-align: center;
+  padding-top: 5%;
+  font-size: 15px;
+  background-color: #d7d7dd;
+  border: #e8e8ee solid 5px;
+  background-size: 80%;
+  background-position-x: 50%;
+  background-position-y: 50%;
+  background-repeat: no-repeat;
+  display: block;
+}
+
+.service_btn:hover{
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.cloud{
+  background-image: url("/img/network_logo.png");
+}
+
+.engz-admin{
+  background-image: url("/img/terminal_logo.png");
+}
+
+.energize{
+  background-image: url("/img/discord_logo.png");
 }

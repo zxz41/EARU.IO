@@ -3,7 +3,7 @@ let mobilewarned = false;
 function OnResize()
 {
     let width = document.body.offsetWidth;
-    if(width < 1100)
+    if(width < 1000)
     {
         let filelist = document.getElementById("file-list-parent");
         if(width < 575)
@@ -48,7 +48,7 @@ function OnResize()
             banner.classList.add("col-sm-1");
 
             let filelist = document.getElementById("file-list-parent")
-            filelist.style.marginLeft = "-1.2%";
+            filelist.style.marginLeft = "-1.1%";
 
             let maindiv = filelist.parentNode;
             maindiv.classList.remove("col-sm-12");
