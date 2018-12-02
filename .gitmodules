@@ -1,0 +1,3 @@
+[submodule "web/lib/boostrap"]
+	path = web/lib/boostrap
+	url = https://github.com/twbs/bootstrap
