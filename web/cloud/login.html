@@ -21,47 +21,49 @@
 
 <body>
 	<div class="home_banner relative">
-			<div class="row justify-content-center align-items-center full_height">
-				<div class="col-lg-6">
-					<div class="banner_left d-flex justify-content-center flex-column">
-                        <h1>Cloud Info</h1>
-                        <form class="login-form ontop" method="POST">
-                            <input name="Email" type="email" placeholder="Email"/>
-                            <input name="Password" type="password" placeholder="Password" />
-                            <input class="main_btn ontop" type="submit" value="Login"/>
-						</form>
-						<?php
-							if(isset($_SESSION["WrongCredentials"]))
-								echo("<span style=\"color:red;\">Your password and/or email is invalid</span>");
-						?>
-						<hr/>
-						<div>I want to go back to the <a href="../">homepage!</a></div>
-					</div>
+		<div class="row justify-content-center align-items-center full_height">
+			<div class="col-lg-6">
+				<div class="banner_left d-flex justify-content-center flex-column">
+					<h1>Cloud Info</h1>
+					<form class="login-form ontop" method="POST">
+						<input name="Email" type="email" placeholder="Email"/>
+						<input name="Password" type="password" placeholder="Password" />
+						<input class="main_btn ontop" type="submit" value="Login"/>
+					</form>
+					<?php
+						if(isset($_SESSION["WrongCredentials"]))
+							echo("<span style=\"color:red;\">Your password and/or email is invalid</span>");
+					?>
+					<hr/>
+					<div>I want to go back to the <a href="../">homepage!</a></div>
 				</div>
-				<div class="col-lg-6">
-					<div class="banner_right d-flex justify-content-center align-items-center">
-						<div class="row">
-							<div class="col-lg-4 ontop">
-								<a class="service_btn cloud" href="/cloud"></a>
-							</div>
-							<div class="col-lg-4 ontop">
-								<a class="service_btn engz-admin" href="https://adm.energize.earu.io"></a>
-							</div>
-							<div class="col-lg-4 ontop">
-								<a class="service_btn energize" href="https://discordapp.com/oauth2/authorize?client_id=360116713829695489&scope=bot&permissions=8"></a>
-							</div>
-						</di>
-						<div class="round-planet planet">
-							<div class="round-planet planet2">
-								<div class="round-planet planet3"></div>
-							</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="banner_right d-flex justify-content-center align-items-center">
+					<div class="row">
+						<div class="col-lg-4 ontop">
+							<a class="service_btn cloud" href="/cloud"></a>
+						</div>
+						<div class="col-lg-4 ontop">
+							<a class="service_btn engz-admin" href="https://adm.energize.earu.io"></a>
+						</div>
+						<div class="col-lg-4 ontop">
+							<a class="service_btn energize" href="https://discordapp.com/oauth2/authorize?client_id=360116713829695489&scope=bot&permissions=8"></a>
+						</div>
+					</di>
+					<div class="round-planet planet">
+						<div class="round-planet planet2">
+							<div class="round-planet planet3"></div>
 						</div>
 					</div>
 				</div>
 			</div>
-		<img class="face-img img-fluid" src="../img/logo.png" alt="logo">
+		</div>
+		<img class="face-img img-fluid" src="../img/logo.png" alt="logo" onclick="AnimateLogo()">
 	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="../lib/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../js/ugotearud.js"></script>
 </body>
 
 </html>
