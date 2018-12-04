@@ -228,6 +228,7 @@ h1 {
   background-position-y: 50%;
   background-repeat: no-repeat;
   display: block;
+  margin-top: 30%;
 }
 
 .service_btn:hover{
@@ -245,4 +246,10 @@ h1 {
 
 .energize{
   background-image: url("/img/discord_logo.png");
+}
+
+.blog{
+  background-size: 110%;
+  background-position-y: 60%;
+  background-image: url("/img/blog_logo.png");
 }

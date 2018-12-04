@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en"/>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta property="og:url" content="http://earu.io/" />
+        <meta property="og:title" content="Earu - Blog" />
+        <meta property="og:description" content="Follow Earu's blog posts!" />
+        <meta name="theme-color" content="#222222" />
+        <link rel="icon" href="../img/logo.png" type="image/png" />
+
+        <title>Earu - Blog</title>
+        <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../css/blog.css">
+    </head>
+    <body>
+        <section class="articles-bg scrollable">
+            <?php
+                LoadArticles();
+            ?>
+        </section>
+        <section>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script src="../lib/bootstrap/js/bootstrap.min.js"></script>
+        </section>
+    </body>
+</html>
