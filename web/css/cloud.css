@@ -56,7 +56,7 @@ h3
 .logo {
   width: 5vw;
   height: 5vw;
-  margin: 1vw 0vw 1vw 2vw;
+  margin: 15%;
   z-index: 2;
   background-image: url("../img/logo_outline_red.png");
   background-size: 3.5vw;
@@ -78,16 +78,15 @@ h3
 }
 
 .banner-left {
-  padding: 0;
   background: #2d2d2d;
   height: 100vh;
-  box-shadow: inset -7px 0px 9px 0px rgba(0,0,0,0.7);
+  padding-right: 0;
 }
 
 .main_btn {
   width: 100%;
   margin-bottom: 10%;
-  background-color: #f42f2c;
+  background-color: #eb2d2a;
   z-index: 2;
   color: #ffffff;
   display: block;
@@ -96,15 +95,13 @@ h3
   font-weight: 600;
   line-height: 48px;
   transition: 0.25s;
-  border: #aa201d solid 1px;
-  border-right: #6d1311 solid 1px;
-  box-shadow: inset -7px 0px 9px 0px rgba(0,0,0,0.4);
+  border: #eb2d2a solid 1px;
 }
 
 .main_btn:hover {
   background: transparent;
-  color: #f42f2c;
-  border: #f42f2c solid 1px;
+  color: #eb2d2a;
+  border: #eb2d2a solid 1px;
 }
 
 .grey_btn {
@@ -158,4 +155,17 @@ h3
   margin: 0;
   height: 90vh;
   width: 100%;
+}
+
+.scrollable::-webkit-scrollbar {
+  width: 1em;
+}
+
+.scrollable::-webkit-scrollbar-track {
+  border: rgba(169, 169, 169, 0.404) solid 1px;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+background-color: darkgrey;
+outline: 1px solid slategrey;
 }
