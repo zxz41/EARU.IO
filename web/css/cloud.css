@@ -66,18 +66,22 @@ h3
   border-radius: 9999px;
   border: #f42f2c solid 2px;
   box-shadow: 0px 0px 40px rgba(244, 47, 44, 0.32);
+  background-color: rgba(244, 47, 44, 0.09);
 }
 
 .logo:hover {
   border: #f9f9ff solid 2px;
   box-shadow: none;
   background-image: url("../img/logo_outline.png");
+  box-shadow: 0px 0px 40px rgba(255, 255, 255, 0.32);
+  background-color: rgba(255, 255, 255, 0.12);
 }
 
 .banner-left {
   padding: 0;
   background: #2d2d2d;
   height: 100vh;
+  box-shadow: inset -7px 0px 9px 0px rgba(0,0,0,0.7);
 }
 
 .main_btn {
@@ -92,7 +96,9 @@ h3
   font-weight: 600;
   line-height: 48px;
   transition: 0.25s;
-  border: #f42f2c solid 1px;
+  border: #aa201d solid 1px;
+  border-right: #6d1311 solid 1px;
+  box-shadow: inset -7px 0px 9px 0px rgba(0,0,0,0.4);
 }
 
 .main_btn:hover {
@@ -106,12 +112,14 @@ h3
   background-color: #cccccc;
   border: #cccccc solid 1px;
   color: #999999;
+  box-shadow: none;
 }
 
 .grey_btn:hover {
   background: transparent;
   border: #cccccc solid 1px;
   color: #999999;
+  box-shadow: none;
 }
 
 .mobile-left-padding{
@@ -148,6 +156,6 @@ h3
   overflow-x: hidden;
   padding: 0;
   margin: 0;
-  height: 86vh;
+  height: 90vh;
   width: 100%;
 }
