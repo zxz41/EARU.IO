@@ -33,11 +33,18 @@
                     <a href="../" class="logo"></a>
                     <!-- buttons in banner -->
                     <button type="button" class="main_btn" data-toggle="modal" data-target="#upload_modal">Upload</button>
-                    <button type="button" class="main_btn" data-toggle="modal" data-target="#download_modal">Download</button>
+                    <form method="POST">
+                        <input type="text" class="hide selected-file-input" name="SelectedFile" readonly/>
+                        <input class="main_btn" type="submit" name="Download" value="Download"/>
+                    </form>
+                    <button type="button" class="main_btn" data-toggle="modal" data-target="#directory_modal">New Folder</button>
                     <button type="button" class="main_btn" data-toggle="modal" data-target="#remove_modal">Remove</button>
                     <button type="button" class="main_btn" data-toggle="modal" data-target="#move_modal">Move</button>
                     <button type="button" class="main_btn" data-toggle="modal" data-target="#rename_modal">Rename</button>
-                    <a href="" class="main_btn">Copy Link</a>
+                    <form method="POST">
+                        <input type="text" class="hide selected-file-input" name="SelectedFile" readonly/>
+                        <input class="main_btn" type="submit" name="CopyLink" value="Copy Link"/>
+                    </form>
                 </div>
                 <div class="col-11">
                     <div id="file-list-parent" class="row">
@@ -63,7 +70,6 @@
         </section>
         <section>
             <script src="../js/cloud.js"></script>
-            <script src="../js/mobile.js"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
             <script src="../lib/bootstrap/js/bootstrap.min.js"></script>
         </section>

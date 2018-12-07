@@ -1,0 +1,19 @@
+<div class="has-selected-file">
+    <div class="row">
+        <div class="col-12 text-center">
+            Are you sure that you want to remove "<div class="selected-file-name">UNKNOWN_FILE</div>" ?
+        </div>
+        <div class="col-6">
+            <form id="remove_form" method="POST">
+                <input class="hide selected-file-input" type="text" name="SelectedFile" readonly />
+                <input class="main_btn grey_btn no-margin" type="submit" name="Remove" value="Yes">
+            </form>
+        </div>
+        <div class="col-6">
+            <button type="button" class="main_btn grey_btn no-margin" data-dismiss="modal">No</button>
+        </div>
+    </div>
+</div>
+<div class="no-selected-file text-center">
+    You did not select any file!
+</div>

@@ -1,6 +1,6 @@
 <?php
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
+    ini_set("display_errors", 1);
+    ini_set("display_startup_errors", 1);
     error_reporting(E_ALL);
 
     session_start();
@@ -18,15 +18,52 @@
             mkdir($_SESSION["CurrentDirectory"],0777,true);
     }
 
+    function ZipFolder($path)
+    {
+        $zipname = basename($path) . ".zip";
+        $destination = dirname($path) . $zipname;
+        if (!extension_loaded("zip") || !file_exists($path))
+            return false;
+
+        $zip = new ZipArchive();
+        if (!$zip->open($destination, ZIPARCHIVE::CREATE))
+            return false;
+
+        if (is_dir($path) === true)
+        {
+            $files = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($path),
+                RecursiveIteratorIterator::SELF_FIRST
+            );
+
+            foreach ($files as $file)
+            {
+                // Ignore "." and ".." folders
+                if(in_array(substr($file, strrpos($file, "/") + 1),[ ".", ".." ]))
+                    continue;
+
+                $file = realpath($file);
+                if (is_dir($file) === true)
+                    $zip->addEmptyDir(str_replace($path . "/", "", $file . "/"));
+                else if (is_file($file) === true)
+                    $zip->addFromString(str_replace($path . "/", "", $file), file_get_contents($file));
+            }
+        }
+        else if (is_file($path) === true)
+        {
+            $zip->addFromString(basename($path), file_get_contents($path));
+        }
+
+        if($zip->close())
+            return $zipname;
+        else
+            return false;
+    }
+
     function GetUserCloudPath()
     {
         global $basepath;
         return $basepath . "Cloud/" . $_SESSION["Username"];
-    }
-
-    function ChangeDirectory($dir)
-    {
-        $_SESSION["CurrentDirectory"] = GetUserCloudPath() . "/" . $dir;
     }
 
     function GetFiles()
@@ -72,6 +109,29 @@
             move_uploaded_file($uploadedfile["tmp_name"],$_SESSION["CurrentDirectory"] . "/" . $uploadedfile["name"]);
     }
 
+    function IsNullOrEmptyString($str)
+    {
+        return (!isset($str) || trim($str) === "");
+    }
+
+    function DeleteDirectory($path)
+    {
+        $blacklist = [ "." => true, ".." => true ];
+        if(isset($blacklist[basename($path)])) return;
+
+        if(is_dir($path))
+        {
+            $files = scandir($path);
+            foreach($files as $file)
+                DeleteDirectory($path . "/" . $file);
+            rmdir($path);
+        }
+        else
+        {
+            unlink($path);
+        }
+    }
+
     function DisplayProperBaseDirectory()
     {
         echo($_SESSION["Username"] . "'s Cloud");
@@ -98,13 +158,13 @@
             $path     = $_SESSION["CurrentDirectory"] . "/" . $f;
             $filesize = filesize($path); // bytes
             $filesize = round($filesize / 1024, 2);
-            $ext      = is_dir($path) ? "folder" : pathinfo($path,PATHINFO_EXTENSION);
+            $type      = is_dir($path) ? "folder" : mime_content_type($path);
 
             echo("<div style=\"background-color:" . $color . ";\" class=\"row file-row\">");
-                echo("<div class=\"file-row-category col-lg-4\">" . $f                                    . "</div>");
-                echo("<div class=\"file-row-category col-lg-4\">" . date("m/d/Y H:i:s", filectime($path)) . "</div>");
-                echo("<div class=\"file-row-category col-lg-2\">" . $filesize                          . "KB </div>");
-                echo("<div class=\"file-row-category col-lg-2\">" . $ext                                  . "</div>");
+                echo("<div class=\"file-row-category col-sm-4\">" . $f                                    . "</div>");
+                echo("<div class=\"file-row-category col-sm-4\">" . date("m/d/Y H:i:s", filectime($path)) . "</div>");
+                echo("<div class=\"file-row-category col-sm-2\">" . $filesize                          . "KB </div>");
+                echo("<div class=\"file-row-category col-sm-2\">" . $type                                 . "</div>");
             echo("</div>");
 	    }
 	    echo("</div>");
@@ -129,20 +189,127 @@
         }
     }
 
+    $postcallbaks = [
+        "Download" => function()
+        {
+            if(!IsNullOrEmptyString($_POST["SelectedFile"]))
+            {
+                $path = $_SESSION["CurrentDirectory"] . "/" . $_POST["SelectedFile"];
+                if(file_exists($path))
+                {
+                    $iszipfolder = false;
+                    if(is_dir($path))
+                    {
+                        return true; //temporary until i fix zipping folders
+
+                        $zipname = ZipFolder($path);
+                        if($zipname != false)
+                        {
+                            $path = $_SESSION["CurrentDirectory"] . "/" . $zipname;
+                            $_POST["SelectedFile"] = $zipname;
+                            $iszipfolder = true;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
+
+                    $contentype = mime_content_type($path);
+                    header("Content-disposition: attachment; filename=" . $_POST["SelectedFile"]);
+                    header("Content-type: " . $contentype);
+                    readfile($path);
+
+                    if($iszipfolder)
+                        unlink($_POST["SelectedFile"]);
+
+                    return false;
+                }
+            }
+
+            return true;
+        },
+        "Directory" => function()
+        {
+            if(!IsNullOrEmptyString($_POST["DirectoryName"]))
+            {
+                $path = $_SESSION["CurrentDirectory"] . "/" . $_POST["DirectoryName"];
+                if(!file_exists($path))
+                    mkdir($path,0777,true);
+                else
+                    if(!is_dir($path))
+                        mkdir($path,0777,true);
+            }
+
+            return true;
+        },
+        "ChangeDirectory" => function()
+        {
+            if(!IsNullOrEmptyString($_POST["DirectoryName"]))
+            {
+                $dir = $_POST["DirectoryName"];
+
+                if($dir === ".") return true;
+                if($dir === "..")
+                {
+                    $dir = dirname($_SESSION["CurrentDirectory"]);
+
+                    // So arbitrary POST requests cant go lower in file system
+                    if(strstr($dir,GetUserCloudPath()) != false)
+                        $_SESSION["CurrentDirectory"] = $dir;
+                }
+                else
+                {
+                    $_SESSION["CurrentDirectory"] = $_SESSION["CurrentDirectory"] . "/" . $dir;
+                }
+            }
+
+            return true;
+        },
+        "Remove" => function()
+        {
+            if(!IsNullOrEmptyString($_POST["SelectedFile"]))
+            {
+                $path = $_SESSION["CurrentDirectory"] . "/" . $_POST["SelectedFile"];
+                if(file_exists($path))
+                {
+                    if(!is_dir($path))
+                        unlink($path);
+                    else
+                        DeleteDirectory($path);
+                }
+            }
+
+            return true;
+        },
+    ];
+
+    // Executes the FIRST action it finds (Multiple actions are undefined behavior)
+    function HandleActions()
+    {
+        global $postcallbaks;
+        foreach($postcallbaks as $name => $callback)
+            if(isset($_POST[$name]))
+                return $callback();
+
+        return true;
+    }
+
     if(!isset($_SESSION["LoggedIn"]) || !$_SESSION["LoggedIn"])
         VerifyCredentials();
 
     if(isset($_POST["Disconnect"]))
     {
         $_SESSION["LoggedIn"] = false;
-        unset($_SESSION["Email"]);
-        unset($_SESSION["Password"]);
+        unset($_SESSION["Username"]);
     }
 
     if($_SESSION["LoggedIn"])
     {
         HandleUploadedFiles();
-        include("index.html");
+        $load = HandleActions();
+
+        if($load) include("index.html");
     }
     else
     {

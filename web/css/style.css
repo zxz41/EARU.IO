@@ -80,6 +80,12 @@ body {
   .home_banner .banner_right .round-planet {
     display: none;
   }
+  .home_banner .face-img {
+    display: none;
+  }
+  .services {
+    display: none;
+  }
 }
 
 .home_banner .banner_right .round-planet.planet2 {
@@ -104,12 +110,6 @@ body {
   -ms-transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-}
-
-@media (max-width: 991px) {
-  .home_banner .face-img {
-    display: none;
-  }
 }
 
 h1 {
@@ -144,7 +144,7 @@ h1 {
 }
 
 .steam_btn {
-  margin: 0px -20px 0px 0px !important;
+  margin: 0px -20px 20px 0px !important;
   padding: 0px 30px;
   background: #2d2d2d;
   z-index: 2;
@@ -211,6 +211,10 @@ h1 {
   background: transparent;
   color: #f42f2c;
   box-shadow: none;
+}
+
+.services{
+  position: absolute;
 }
 
 .service_btn{

@@ -78,9 +78,10 @@ h3
 }
 
 .banner-left {
-  background: #2d2d2d;
+  background-color: #2d2d2d;
   height: 100vh;
   padding-right: 0;
+  box-shadow: -10px 0px 30px inset black;
 }
 
 .main_btn {
@@ -95,7 +96,8 @@ h3
   font-weight: 600;
   line-height: 48px;
   transition: 0.25s;
-  border: #eb2d2a solid 1px;
+  border: #c2211e solid 1px;
+  box-shadow: inset -10px 0 30px -7px rgba(0,0,0,0.4);
 }
 
 .main_btn:hover {
@@ -136,6 +138,16 @@ h3
   text-align: left;
 }
 
+/* prevent text highlight */
+.file-row {
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+
 .file-row:hover{
   background-color: rgba(244, 47, 44, 0.35) !important;
   color: #555555;
@@ -166,6 +178,20 @@ h3
 }
 
 .scrollable::-webkit-scrollbar-thumb {
-background-color: darkgrey;
-outline: 1px solid slategrey;
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
 }
+
+.no-selected-file {
+  display: block;
+}
+
+.has-selected-file {
+  display: none;
+}
+
+.selected-file-name {
+  display: inline;
+  font-weight: bold;
+}
+
