@@ -38,6 +38,10 @@ h3
   display: inline;
 }
 
+form{
+  padding: 0;
+}
+
 .header {
   background-color: #f9f9ff;
   padding: 0.5%;
@@ -195,3 +199,23 @@ h3
   font-weight: bold;
 }
 
+.disabled-input{
+  color: gray;
+  border: gray solid 1px;
+  background-color: lightgray;
+}
+
+.fab{
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  border-radius: 9999px;
+  box-shadow: none;
+  width: 50px;
+  height: 50px;
+  box-shadow: 0px 0px 30px #eb2d2a;
+}
+
+.fab:hover{
+  background-color: #eb2d2a;
+}

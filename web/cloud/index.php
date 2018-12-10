@@ -229,16 +229,39 @@
 
             return true;
         },
-        "Directory" => function()
+        "Create" => function()
         {
-            if(!IsNullOrEmptyString($_POST["DirectoryName"]))
+            if(!IsNullOrEmptyString($_POST["Name"]) && !IsNullOrEmptyString($_POST["Type"]))
             {
-                $path = $_SESSION["CurrentDirectory"] . "/" . $_POST["DirectoryName"];
+                $path = $_SESSION["CurrentDirectory"] . "/" . $_POST["Name"];
+                $isfile = $_POST["Type"] === "File";
                 if(!file_exists($path))
-                    mkdir($path,0777,true);
-                else
-                    if(!is_dir($path))
+                {
+                    if($isfile)
+                        fopen($path,"w");
+                    else
                         mkdir($path,0777,true);
+                }
+                else
+                {
+                    if(!$isfile && !is_dir($path))
+                        mkdir($path,0777,true);
+
+                    if($isfile && is_dir($path))
+                        fopen($path,"w");
+                }
+            }
+
+            return true;
+        },
+        "Rename" => function()
+        {
+            if(!IsNullOrEmptyString($_POST["SelectedFile"]) && !IsNullOrEmptyString($_POST["NewName"]))
+            {
+                $oldpath = $_SESSION["CurrentDirectory"] . "/" . $_POST["SelectedFile"];
+                $newpath = $_SESSION["CurrentDirectory"] . "/" . $_POST["NewName"];
+                if(file_exists($oldpath))
+                    rename($oldpath,$newpath);
             }
 
             return true;
