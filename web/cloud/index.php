@@ -5,7 +5,7 @@
 
     session_start();
 
-    $basepath     = "/home/earu/";
+    $basepath     = "C:/wamp64/www/";
     $userfilepath = $basepath . "/cloud-users.json";
     $userfile     = fopen($userfilepath, "r") or die("Unable to get list of users");
     $users        = json_decode(fread($userfile,filesize($userfilepath)))->Users;
@@ -114,6 +114,11 @@
         return (!isset($str) || trim($str) === "");
     }
 
+    function StringStartsWith($haystack, $needle)
+    {
+        return strpos($haystack,$needle) === 0;
+    }
+
     function DeleteDirectory($path)
     {
         $blacklist = [ "." => true, ".." => true ];
@@ -140,7 +145,7 @@
     function DisplayProperDirectory()
     {
         $cur = $_SESSION["CurrentDirectory"];
-        echo(substr($cur,strlen(GetUserCloudPath()) + 1));
+        echo(str_replace("\\","/",substr($cur,strlen(GetUserCloudPath()) + 1)));
     }
 
     function DisplayFiles($files)
@@ -189,13 +194,43 @@
         }
     }
 
+    function IsTraversal($path)
+    {
+        $cloudpath = GetUserCloudPath();
+        return !StringStartsWith($path,$cloudpath);
+    }
+
+    function BuildPath($input)
+    {
+        $path = realpath($_SESSION["CurrentDirectory"] . "/" . $input);
+        $new = false;
+        if($path === false)
+        {
+            $parts = explode("/",str_replace("\\","/",$input));
+            $len = count($parts);
+            $new = $parts[$len - 1];
+            unset($parts[$len - 1]);
+            $path = realpath($_SESSION["CurrentDirectory"] . "/" . implode("/",$parts));
+
+            if($path === false) $new = false;
+        }
+
+        $path = str_replace("\\","/",$path);
+        if(IsTraversal($path)) return false;
+
+        if($new !== false)
+            return $path . "/" . $new;
+        else
+            return $path;
+    }
+
     $postcallbaks = [
         "Download" => function()
         {
             if(!IsNullOrEmptyString($_POST["SelectedFile"]))
             {
-                $path = $_SESSION["CurrentDirectory"] . "/" . $_POST["SelectedFile"];
-                if(file_exists($path))
+                $path = BuildPath($_POST["SelectedFile"]);
+                if($path !== false && file_exists($path))
                 {
                     $iszipfolder = false;
                     if(is_dir($path))
@@ -205,7 +240,7 @@
                         $zipname = ZipFolder($path);
                         if($zipname != false)
                         {
-                            $path = $_SESSION["CurrentDirectory"] . "/" . $zipname;
+                            $path = BuildPath($zipname);
                             $_POST["SelectedFile"] = $zipname;
                             $iszipfolder = true;
                         }
@@ -233,8 +268,10 @@
         {
             if(!IsNullOrEmptyString($_POST["Name"]) && !IsNullOrEmptyString($_POST["Type"]))
             {
-                $path = $_SESSION["CurrentDirectory"] . "/" . $_POST["Name"];
+                $path = BuildPath($_POST["Name"]);
                 $isfile = $_POST["Type"] === "File";
+
+                if($path === false) return true;
                 if(!file_exists($path))
                 {
                     if($isfile)
@@ -258,9 +295,9 @@
         {
             if(!IsNullOrEmptyString($_POST["SelectedFile"]) && !IsNullOrEmptyString($_POST["NewName"]))
             {
-                $oldpath = $_SESSION["CurrentDirectory"] . "/" . $_POST["SelectedFile"];
-                $newpath = $_SESSION["CurrentDirectory"] . "/" . $_POST["NewName"];
-                if(file_exists($oldpath))
+                $oldpath = BuildPath($_POST["SelectedFile"]);
+                $newpath = BuildPath($_POST["NewName"]);
+                if($oldpath != false && $newpath != false && file_exists($oldpath))
                     rename($oldpath,$newpath);
             }
 
@@ -275,15 +312,15 @@
                 if($dir === ".") return true;
                 if($dir === "..")
                 {
-                    $dir = dirname($_SESSION["CurrentDirectory"]);
-
-                    // So arbitrary POST requests cant go lower in file system
-                    if(strstr($dir,GetUserCloudPath()) != false)
+                    $dir = str_replace("\\","/",dirname($_SESSION["CurrentDirectory"]));
+                    if(!IsTraversal($dir))
                         $_SESSION["CurrentDirectory"] = $dir;
                 }
                 else
                 {
-                    $_SESSION["CurrentDirectory"] = $_SESSION["CurrentDirectory"] . "/" . $dir;
+                    $path = BuildPath($dir);
+                    if($path != false)
+                        $_SESSION["CurrentDirectory"] = $path;
                 }
             }
 
@@ -293,8 +330,8 @@
         {
             if(!IsNullOrEmptyString($_POST["SelectedFile"]))
             {
-                $path = $_SESSION["CurrentDirectory"] . "/" . $_POST["SelectedFile"];
-                if(file_exists($path))
+                $path = BuildPath($_POST["SelectedFile"]);
+                if($path != false && file_exists($path))
                 {
                     if(!is_dir($path))
                         unlink($path);
