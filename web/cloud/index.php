@@ -5,7 +5,7 @@
 
     session_start();
 
-    $basepath     = "C:/wamp64/www/";
+    $basepath     = "/home/earu/";
     $userfilepath = $basepath . "/cloud-users.json";
     $userfile     = fopen($userfilepath, "r") or die("Unable to get list of users");
     $users        = json_decode(fread($userfile,filesize($userfilepath)))->Users;
@@ -106,7 +106,11 @@
     function HandleUploadedFiles()
     {
         foreach($_FILES as $uploadedfile)
-            move_uploaded_file($uploadedfile["tmp_name"],$_SESSION["CurrentDirectory"] . "/" . $uploadedfile["name"]);
+        {
+            $path = BuildPath($uploadedfile["name"]);
+            if($path !== false)
+                move_uploaded_file($uploadedfile["tmp_name"],$path);
+        }
     }
 
     function IsNullOrEmptyString($str)
@@ -202,6 +206,7 @@
 
     function BuildPath($input)
     {
+        $input = htmlspecialchars($input,ENT_QUOTES);
         $path = realpath($_SESSION["CurrentDirectory"] . "/" . $input);
         $new = false;
         if($path === false)
