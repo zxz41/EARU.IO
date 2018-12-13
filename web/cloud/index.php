@@ -170,7 +170,7 @@
             $type      = is_dir($path) ? "folder" : mime_content_type($path);
 
             echo("<div style=\"background-color:" . $color . ";\" class=\"row file-row\">");
-                echo("<div class=\"file-row-category col-sm-4\">" . $f                                    . "</div>");
+                echo("<div class=\"file-row-category col-sm-4\">" . htmlentities($f)                      . "</div>");
                 echo("<div class=\"file-row-category col-sm-4\">" . date("m/d/Y H:i:s", filectime($path)) . "</div>");
                 echo("<div class=\"file-row-category col-sm-2\">" . $filesize                          . "KB </div>");
                 echo("<div class=\"file-row-category col-sm-2\">" . $type                                 . "</div>");
@@ -206,7 +206,6 @@
 
     function BuildPath($input)
     {
-        $input = htmlspecialchars($input,ENT_QUOTES);
         $path = realpath($_SESSION["CurrentDirectory"] . "/" . $input);
         $new = false;
         if($path === false)
