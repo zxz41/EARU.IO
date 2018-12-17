@@ -107,7 +107,7 @@
     {
         foreach($_FILES as $uploadedfile)
         {
-            $path = BuildPath($uploadedfile["name"]);
+            $path = BuildPath(trim($uploadedfile["name"]));
             if($path !== false)
                 move_uploaded_file($uploadedfile["tmp_name"],$path);
         }
@@ -272,7 +272,7 @@
         {
             if(!IsNullOrEmptyString($_POST["Name"]) && !IsNullOrEmptyString($_POST["Type"]))
             {
-                $path = BuildPath($_POST["Name"]);
+                $path = BuildPath(trim($_POST["Name"]));
                 $isfile = $_POST["Type"] === "File";
 
                 if($path === false) return true;
@@ -300,7 +300,7 @@
             if(!IsNullOrEmptyString($_POST["SelectedFile"]) && !IsNullOrEmptyString($_POST["NewName"]))
             {
                 $oldpath = BuildPath($_POST["SelectedFile"]);
-                $newpath = BuildPath($_POST["NewName"]);
+                $newpath = BuildPath(trim($_POST["NewName"]));
                 if($oldpath != false && $newpath != false && file_exists($oldpath))
                     rename($oldpath,$newpath);
             }

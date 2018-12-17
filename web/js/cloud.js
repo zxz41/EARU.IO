@@ -74,3 +74,13 @@ function OnRowClick(element)
 
 for(let row of rows)
     row.addEventListener("click", () => OnRowClick(row));
+
+let fileinput = document.getElementById("file-upload");
+let filename = document.getElementById("file-upload-name");
+let fpathlen = 12
+
+fileinput.addEventListener("change",function()
+{
+    let len = fileinput.value.length;
+    filename.value = "~/" + fileinput.value.substr(12,len - 12);
+})
