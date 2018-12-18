@@ -1,3 +1,12 @@
+// Loader when submitting forms
+let loader = document.getElementById("loader");
+let forms  = document.getElementsByTagName("form");
+for(let form of forms)
+    form.addEventListener("submit",() => {
+        loader.style.display = "block";
+    });
+
+// Selecting files, folder, navigation
 let rows      = document.getElementsByClassName("file-row");
 let sfinputs  = document.getElementsByClassName("selected-file-input");
 let sfndivs   = document.getElementsByClassName("selected-file-name");
@@ -9,23 +18,25 @@ let oldstyle  = { BackgroundColor: "", Color: "" };
 
 function ChangeDirectory(dir)
 {
-    let form = document.createElement("form");
+    let form    = document.createElement("form");
     form.method = "POST";
 
-    let dirinput = document.createElement("input");
-    dirinput.type = "hidden";
-    dirinput.name = "DirectoryName";
+    let dirinput   = document.createElement("input");
+    dirinput.type  = "hidden";
+    dirinput.name  = "DirectoryName";
     dirinput.value = dir;
 
-    let actioninput = document.createElement("input");
-    actioninput.type = "hidden";
-    actioninput.name = "ChangeDirectory";
+    let actioninput   = document.createElement("input");
+    actioninput.type  = "hidden";
+    actioninput.name  = "ChangeDirectory";
     actioninput.value = "true";
 
     form.appendChild(dirinput);
     form.appendChild(actioninput);
     document.body.appendChild(form);
     form.submit();
+
+    loader.style.display = "block";
 }
 
 function OnRowClick(element)
@@ -47,8 +58,8 @@ function OnRowClick(element)
     }
 
     let categories = element.getElementsByClassName("file-row-category");
-    let namecat = categories[0];
-    let typecat = categories[3];
+    let namecat    = categories[0];
+    let typecat    = categories[3];
 
     if(typecat.innerText === "folder" && selement === element)
         ChangeDirectory(namecat.innerText);
@@ -75,12 +86,32 @@ function OnRowClick(element)
 for(let row of rows)
     row.addEventListener("click", () => OnRowClick(row));
 
+// Shows file name when uploading and prevents big file uploads
+let fileform  = document.getElementById("upload_form");
+let filewarn  = document.getElementById("file-warning");
 let fileinput = document.getElementById("file-upload");
-let filename = document.getElementById("file-upload-name");
-let fpathlen = 12
+let filename  = document.getElementById("file-upload-name");
+let fpathlen  = 12
+let fmaxsize  = 52428800 //50mb
 
-fileinput.addEventListener("change",function()
+fileinput.addEventListener("change",() =>
 {
     let len = fileinput.value.length;
+    filewarn.style.display = "none";
     filename.value = "~/" + fileinput.value.substr(12,len - 12);
 })
+
+fileform.addEventListener("submit",evt =>
+{
+    let file = fileinput.files[0];
+    if(file && file.size < fmaxsize)
+    {
+        fileform.submit();
+    }
+    else
+    {
+        evt.preventDefault();
+        filewarn.style.display = "inline";
+        loader.style.display = "none";
+    }
+},false);
