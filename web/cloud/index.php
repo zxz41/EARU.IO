@@ -1,16 +1,45 @@
 <?php
     ini_set("display_errors", 1);
     ini_set("display_startup_errors", 1);
-    //ini_set("post_max_size", "100M");
     error_reporting(E_ALL);
 
     session_start();
 
-    $basepath     = "/home/earu/";
-    $userfilepath = $basepath . "/cloud-users.json";
-    $userfile     = fopen($userfilepath, "r") or die("Unable to get list of users");
-    $users        = json_decode(fread($userfile,filesize($userfilepath)))->Users;
+    $basepath      = "/home/earu/";
+    $userfilepath  = $basepath . "/cloud-users.json";
+    $blacklistpath = $basepath . "/ip-blacklist.json";
+    $userfile      = fopen($userfilepath, "r") or die("Unable to get list of users");
+    $blacklistfile = fopen($blacklistpath, "r") or die("Unable to get ip blacklist");
+    $users         = json_decode(fread($userfile,filesize($userfilepath)))->Users;
+    $blacklistips  = json_decode(fread($blacklistfile,filesize($blacklistpath)))->IPs;
     fclose($userfile);
+    fclose($blacklistfile);
+
+    function GetIP()
+    {
+        if (!empty($_SERVER["HTTP_CLIENT_IP"]))
+            return $_SERVER["HTTP_CLIENT_IP"];
+        elseif (!empty($_SERVER["HTTP_X_FORWARDED_FOR"]))
+            return $_SERVER["HTTP_X_FORWARDED_FOR"];
+        else
+            return $_SERVER["REMOTE_ADDR"];
+    }
+
+    function IsBlackListed($adr)
+    {
+        global $blacklistips;
+        foreach($blacklistips as $ip)
+            if($ip === $adr)
+                return true;
+
+        return false;
+    }
+
+    if(IsBlackListed(GetIP()))
+    {
+        include("heythere.html");
+        return;
+    }
 
     if(!isset($_SESSION["CurrentDirectory"]))
     {
@@ -77,10 +106,9 @@
         global $users;
         if(isset($_POST["Email"]) && isset($_POST["Password"]))
         {
-            $hash = hash("md5",$_POST["Password"]);
             foreach($users as $user)
             {
-                $_SESSION["LoggedIn"] = $_POST["Email"] === $user->Email && $hash === $user->Password;
+                $_SESSION["LoggedIn"] = $_POST["Email"] === $user->Email && password_verify($_POST["Password"],$user->Password);
                 if($_SESSION["LoggedIn"])
                 {
                     $_SESSION["Username"] = $user->Name;
@@ -144,13 +172,13 @@
 
     function DisplayProperBaseDirectory()
     {
-        echo($_SESSION["Username"] . "'s Cloud");
+        echo(htmlentities($_SESSION["Username"] . "'s Cloud"));
     }
 
     function DisplayProperDirectory()
     {
         $cur = $_SESSION["CurrentDirectory"];
-        echo(str_replace("\\","/",substr($cur,strlen(GetUserCloudPath()) + 1)));
+        echo(htmlentities(str_replace("\\","/",substr($cur,strlen(GetUserCloudPath()) + 1))));
     }
 
     function DisplayFiles($files)
