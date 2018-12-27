@@ -47,8 +47,8 @@
                 <div class="col-11">
                     <div id="file-list-parent" class="row">
                         <div class="col-11 header">
-                            <h1><?php DisplayProperBaseDirectory(); ?>/</h1>
-                            <h3><?php DisplayProperDirectory(); ?></h3>
+                            <h1><?php echo htmlentities(ProperBaseDirectory()); ?>/</h1>
+                            <h3><?php echo htmlentities(ProperDirectory()); ?></h3>
                         </div>
                         <div class="col-1 header">
                             <form class="login-form" method="POST">

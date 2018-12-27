@@ -170,15 +170,15 @@
         }
     }
 
-    function DisplayProperBaseDirectory()
+    function ProperBaseDirectory()
     {
-        echo(htmlentities($_SESSION["Username"] . "'s Cloud"));
+        return $_SESSION["Username"] . "'s Cloud";
     }
 
-    function DisplayProperDirectory()
+    function ProperDirectory()
     {
         $cur = $_SESSION["CurrentDirectory"];
-        echo(htmlentities(str_replace("\\","/",substr($cur,strlen(GetUserCloudPath()) + 1))));
+        return str_replace("\\","/",substr($cur,strlen(GetUserCloudPath()) + 1));
     }
 
     function DisplayFiles($files)
