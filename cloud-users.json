@@ -1,9 +1,9 @@
 {
     "Users": [
         {
-            "Email": "test.test@test.com",
-            "Password": "bcrypthashhere",
-            "Name": "John"
+            "Email":    "john.doe@example.com",
+            "Password": "password_hash_here",
+            "Name":     "John Doe"
         }
     ]
 }
