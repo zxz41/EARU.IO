@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta property="og:url" content="http://earu.io/panel/" />
+    <meta property="og:title" content="Earu - Panel" />
+    <meta property="og:description" content="Your managment panel on earu.io" />
+    <meta name="theme-color" content="#222222" />
+    <link rel="icon" href="../resources/img/logo.png" type="image/png">
+    <title>Earu - Panel</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../resources/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.11/css/lightgallery.min.css">
+    <!-- main css -->
+    <link rel="stylesheet" href="../resources/css/panel.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <header class="row">
+            <div class="col-1 header">
+                <a href="../" class="logo"></a>
+            </div>
+            <div class="col-10 header">
+                <h1><?php DisplayHeader(); ?></h1>
+            </div>
+            <div class="col-1 header">
+                <form class="login-form" method="POST">
+                    <input class="main_btn grey_btn" type="submit" name="Disconnect" value="Disconnect"/>
+                </form>
+            </div>
+        </header>
+        <section class="row">
+            <div class="col-sm-4">
+                <div class="change-creds">
+                    <h3>Change my info</h3>
+                    <form method="POST">
+                        <input class="input" type="text" name="NewName" placeholder="Your new name">
+                        <input class="input" type="password" name="NewPassword" placeholder="Your new password">
+                        <input class="input" type="password" name="CurrentPassword" placeholder="Your current password">
+                        <input class="main_btn mb-3" type="submit" name="ChangeCredentials" value="Apply Changes">
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="services">
+                    <h3>Services</h3>
+                    <div class="scrollable">
+                        <div class="service">
+                            <a class="service_btn cloud" href="../cloud/"></a>
+                            <div>Cloud</div>
+                        </div>
+                        <div class="service">
+                            <a class="service_btn energize" href="https://discordapp.com/oauth2/authorize?client_id=360116713829695489&scope=bot&permissions=8"></a>
+                            <div>Energize</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
