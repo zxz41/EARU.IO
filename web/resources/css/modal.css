@@ -1,0 +1,25 @@
+.modal-content{
+    background-color: #f9f9ff;
+    border-radius: 0px;
+    padding-bottom: 0;
+    margin-top: 50%;
+}
+
+.modal-header{
+    border-bottom: #ffffff solid 0px;
+    background-color: #e9e9ee;
+    padding: 7px;
+}
+
+.modal-body{
+    padding: 7px;
+    margin: 0;
+}
+
+.no-margin{
+    margin: 0;
+}
+
+.hide{
+    display: none;
+}

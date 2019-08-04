@@ -1,0 +1,73 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta property="og:url" content="http://earu.io/auth/" />
+	<meta property="og:title" content="Earu - Auth" />
+	<meta property="og:description" content="Authenticate on earu.io" />
+	<meta name="theme-color" content="#222222" />
+	<link rel="icon" href="../resources/img/logo.png" type="image/png">
+	<title>Earu - Cloud</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="../resources/lib/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.11/css/lightgallery.min.css">
+	<!-- main css -->
+	<link rel="stylesheet" href="../resources/css/style.css">
+	<link rel="stylesheet" href="../resources/css/mobile.css">
+</head>
+
+<body>
+	<div class="home_banner relative">
+		<div class="row justify-content-center align-items-center full_height">
+			<div class="col-lg-6">
+				<div class="banner_left d-flex justify-content-center flex-column">
+					<h1>Login</h1>
+					<form class="login-form ontop" method="POST">
+						<input name="Email" type="email" placeholder="Email"/>
+						<input name="Password" type="password" placeholder="Password" />
+						<input class="main_btn ontop" type="submit" value="Login"/>
+					</form>
+					<?php
+						if(isset($_SESSION["WrongCredentials"]))
+						echo("<span style=\"color: red;\">Your password and/or email is invalid</span>");
+					?>
+					<hr/>
+					<div>I want to go back to the <a href="../">homepage!</a></div>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="banner_right d-flex justify-content-center align-items-center">
+					<div class="row services">
+						<div class="col-lg-4 ontop">
+							<a class="service_btn cloud" href="../cloud"></a>
+						</div>
+						<div class="col-lg-4 ontop">
+							<a class="service_btn engz-admin" href="https://adm.energize.earu.io"></a>
+						</div>
+						<div class="col-lg-4 ontop">
+							<a class="service_btn energize" href="https://discordapp.com/oauth2/authorize?client_id=360116713829695489&scope=bot&permissions=8"></a>
+						</div>
+						<div class="col-lg-4 ontop">
+							<a class="service_btn blog" href="../blog"></a>
+						</div>
+					</div>
+					<div class="round-planet planet">
+						<div class="round-planet planet2">
+							<div class="round-planet planet3"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<img class="face-img img-fluid" src="../resources/img/logo.png" alt="logo" onclick="AnimateLogo()">
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="../resources/lib/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../resources/js/ugotearud.js"></script>
+</body>
+
+</html>

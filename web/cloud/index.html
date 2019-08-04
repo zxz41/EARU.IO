@@ -5,18 +5,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta property="og:url" content="http://earu.io/" />
         <meta property="og:title" content="Earu - Cloud" />
-        <meta property="og:description" content="Earu's personal cloud." />
+        <meta property="og:description" content="Your personal cloud on earu.io" />
         <meta name="theme-color" content="#222222" />
-        <link rel="icon" href="../img/logo.png" type="image/png" />
+        <link rel="icon" href="../resources/img/logo.png" type="image/png" />
 
         <title>Earu - Cloud</title>
-        <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="../css/cloud.css">
-        <link rel="stylesheet" href="../css/mobile.css">
-        <link rel="stylesheet" href="../css/modal.css">
+        <link rel="stylesheet" href="../resources/lib/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../resources/css/cloud.css">
+        <link rel="stylesheet" href="../resources/css/mobile.css">
+        <link rel="stylesheet" href="../resources/css/modal.css">
     </head>
     <body>
-        <div id="loader" class="loader">LOADING...</div>
         <section>
             <?php LoadModals(); ?>
         </section>
@@ -29,10 +28,10 @@
                     </style>
                 </noscript>
                 <div class="col-1 banner-left">
-                    <a href="../" class="logo"></a>
+                    <a href="../panel" class="logo"></a>
                     <!-- buttons in banner -->
                     <button type="button" class="main_btn" data-toggle="modal" data-target="#upload_modal">Upload</button>
-                    <form method="POST">
+                    <form class="no-loader" method="POST">
                         <input type="text" class="hide selected-file-input" name="SelectedFile" readonly/>
                         <input class="main_btn" type="submit" name="Download" value="Download"/>
                     </form>
@@ -47,8 +46,8 @@
                 <div class="col-11">
                     <div id="file-list-parent" class="row">
                         <div class="col-11 header">
-                            <h1><?php echo htmlentities(ProperBaseDirectory()); ?>/</h1>
-                            <h3><?php echo htmlentities(ProperDirectory()); ?></h3>
+                            <h1><?php DisplayProperBaseDirectory(); ?>/</h1>
+                            <h3><?php DisplayProperDirectory(); ?></h3>
                         </div>
                         <div class="col-1 header">
                             <form class="login-form" method="POST">
@@ -59,6 +58,7 @@
                         <div class="col-sm-4 sorting-header">Date Modified</div>
                         <div class="col-sm-2 sorting-header">Size</div>
                         <div class="col-sm-2 sorting-header">Type</div>
+                        <div id="loader" class="loader"><span></span></div>
                         <div class="scrollable">
                             <?php DisplayFiles(GetFiles()); ?>
                         </div>
@@ -67,9 +67,9 @@
             </div>
         </section>
         <section>
-            <script src="../js/cloud.js"></script>
+            <script src="../resources/js/cloud.js"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-            <script src="../lib/bootstrap/js/bootstrap.min.js"></script>
+            <script src="../resources/lib/bootstrap/js/bootstrap.min.js"></script>
         </section>
     </body>
 </html>
